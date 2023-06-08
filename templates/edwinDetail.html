@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="../static/detail.css">
+</head>
+<body>
+  <div id="menulist"></div>
+  <script>
+    // *--------------------------------------------------- 리뷰 임시데이터
+    let reveiwLists = [
+                        {
+                          id: 0,
+                          selectRestarant: "steaks",
+                          selectRestarantId : "california-reserve-filet-mignon-steaks-gift-box",
+                          nickName : "edwin",
+                          content: "이 식당 존맛이더라..."
+                        },
+                        {
+                          id: 1,
+                          selectRestarant: "steaks",
+                          selectRestarantId : "california-reserve-filet-mignon-steaks-gift-box",
+                          nickName : "edwin",
+                          content: "이 식당 존맛이더라..."
+                        },
+                        {
+                          id: 3,
+                          selectRestarant: "steaks",
+                          selectRestarantId : "california-reserve-filet-mignon-steaks-gift-box",
+                          nickName : "edwin",
+                          content: "이 식당 존맛이더라..."
+                        },
+                        {
+                          id: 4,
+                          selectRestarant: "steaks",
+                          selectRestarantId : "california-reserve-filet-mignon-steaks-gift-box",
+                          nickName : "edwin",
+                          content: "이 식당 존맛이더라..."
+                        }
+                      ]
+    // *--------------------------------------------------- 리뷰 임시데이터
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const selectRestaurant = id.split("/")[0]  
+    getMenu()
+
+    function getMenu() {
+      $.ajax({
+        type: "GET",
+        url: `https://free-food-menus-api-production.up.railway.app/${id}`,
+        data: {},
+        success: function (response) {
+          let {img, name, dsc, price} = response
+          $('#selcet').append(`<h2>${selectRestaurant}</h2>`);
+          $('#menuLists').append(`
+            <div>
+              <figure style="width:300px">
+                <img style="width:100%" src="${img}" alt="${img}">
+              </figure>  
+              <p>${name}</p>
+              <p>${dsc}</p>
+              <p>${price*130}원</p>
+            </div>
+          `);
+
+        }
+      });
+    }
+  </script>
+  <div id="selcet"></div>
+  <a href="{{ url_for('test')}}">돌아가기</a>
+  <div id="menuLists">
+  </div>
+</body>
+</html>

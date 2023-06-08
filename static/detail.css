@@ -1,0 +1,236 @@
+body, div,span,h1,h2,h3,h4,h5,h6,p,a,img,ol,ul,li,label,legend,article,figure,figcaption,footer,header,nav,
+section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}
+
+.outLine {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.contaniar {
+  width: 100vw;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  /* 
+      첫번째는 부모보다 자식이 작은경우, 부모크기에 맞춤 : grow
+      두번째는 부모보다 자식이 큰경우, 부모크기에 맞춤 : shrink
+      세번째는 해당 태그의 너비를 초기값 0, 즉 사용자가 브라우저를 켰을 때 크기에 따른다.
+   */
+}
+
+.selectionLeft {
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 100%;
+  min-width: 350px;
+  height: 100%;
+  max-height: 100%;
+  overflow: scroll;
+}
+
+.headerInfo {
+  height: 60px;
+  max-height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.headerInfo h1 {
+  margin-left: 20px;
+  font-size: 2rem;
+}
+/* 1rem 16px */
+
+.selectRestaurant {
+  height: 60px;
+  max-height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: #FFE094;
+}
+
+.selectRestaurant h3 {
+  font-size: 1.5rem;
+  margin-left: 20px;
+
+}
+
+.detailMenuInfo {
+  margin: 0 auto;
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px 0;
+  
+
+  @media screen and (max-width: 1200px) {
+    width: 100%;
+  }
+}
+
+.detailMenuInfo .contentOutLine {
+  width: 100%;
+  height: 150px;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #FFCE55;
+  box-shadow: 5px 5px 2px #6D6655;
+  padding: 10px;
+}
+
+
+.detailMenuInfo .img_box{
+  position: relative;
+  width: 120px;
+  min-width: 120px;
+  height: 100px;
+  margin-right: 10px;
+  border: none;
+}
+
+.detailMenuInfo .img_box img {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+.detailMenuInfo .contentInLine{
+  border-left: 3px solid black;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.detailMenuInfo .contentForm {
+  margin-top: 24px;
+  font-size: 1rem;
+}
+
+.detailMenuInfo .contentForm fieldset {
+  border: 5px solid #FFBB15;
+  border-radius: 10px;
+  display: flex;
+  gap: 12px;
+
+
+  @media screen and (max-width: 850px) {
+    flex-direction : column;
+  }
+}
+
+.detailMenuInfo .contentForm legend {
+  padding: 0 10px;
+}
+
+.detailMenuInfo .contentForm fieldset .nickName {
+  width: 350px;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+
+  @media screen and (max-width: 850px) {
+    width:100%
+  }
+}
+.detailMenuInfo .contentForm fieldset .content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 850px) {
+    width:100%
+  }
+
+}
+.detailMenuInfo .contentForm fieldset .submit {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 850px) {
+    width:100%
+  }
+}
+
+.detailMenuInfo .contentForm input {
+  display: block;
+  flex: 1 1 0;
+}
+
+.detailMenuInfo .commendLists {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detailMenuInfo .commendOutLine {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 20px;
+  align-items: flex-start;
+  border: 1px solid #B6AA8E;
+}
+
+.detailMenuInfo .commendOutLine .profileArea {
+  width: 50px;
+  min-height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;}
+
+.detailMenuInfo .commendLists .profileArea img {
+  display: flex;
+  width: 90%;
+  opacity: 0.2;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  border: 2px solid lightgray;
+}
+
+.detailMenuInfo .commendOutLine .commendArea {
+  width: 100%;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+
+.selectionRight {
+  width: 200px;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  background-color: #FFEFC8;
+
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
+}

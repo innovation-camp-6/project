@@ -13,17 +13,6 @@ def home():
 def post():
    return render_template('post.html')
 
-@app.route('/a')
-def abcd():
-   return render_template('a.html')
-
-@app.route('/b')
-def abcde():
-   return render_template('b.html')
-
-@app.route('/detail')
-def detail():
-   return render_template('detail.html')
 
 @app.route("/menu", methods=["POST"])
 def menu_post():
@@ -47,6 +36,18 @@ def menu_post():
 def menu_get():
     all_menus = list(db.menu.find({},{'_id':False}))
     return jsonify({'result': all_menus})
+  
+@app.route('/test')
+def test():
+  return render_template('edwinTest.html')
+
+@app.route('/main')
+def main():
+  return render_template('edwinDetail.html')
+
+@app.route('/detail')
+def detail():
+  return render_template('detail.html')  
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)
