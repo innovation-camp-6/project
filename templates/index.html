@@ -8,91 +8,42 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+		<link href="/static/index.css" type="text/css" rel="stylesheet"></script>
 
-		<title>Document</title>
-		<style>
-			.main {
-				width: 1280px;
-				display: flex;
-				margin: 0 auto 0 auto;
-				flex-direction: column;
-			}
-
-			.main > hr {
-				margin-bottom : 20px;
-			}
-
-			.title {
-				width: 1280px;
-				height: 100px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.gnb {
-				width: 1280px;
-				height: 52px;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: space-between;
-			}
-
-			.gnb > button {
-				width: 200px;
-				height: 52px;
-				border-radius: 5px;
-				font-weight: 800;
-				border: 1px solid black;
-			}
-
-			.col {
-				width: 300px;
-				margin: 10px;
-			}
-			
-			.card-body {
-				display: flex;
-				flex-direction: column;
-				justify-content: end;
-				text-align: center;
-
-				position: absolute;
-				opacity: 0;
-				width: 100%;
-				height: 100%;
-
-				background-color: rgba(0,0,0,0.5);
-				color: white;
-				font-weight: 10px;
-    			transition: 0.3s linear;
-			}
-
-			.card-body:hover {
-				opacity: 1;
-			}
-
-		</style>
+		<title>Hwan's Restaurant</title>		
 		<script>
+			// 선택된 버튼 색 변경
+			document.addEventListener("DOMContentLoaded", function() {
+				var buttons = document.getElementsByClassName("btn-primary");
+				var selectedButton = null;
+
+				for (var i = 0; i < buttons.length; i++) {
+					buttons[i].addEventListener("click", function() {
+					if (selectedButton) {
+						selectedButton.classList.remove("clicked");
+						}
+						this.classList.add("clicked");
+						selectedButton = this;
+					});
+				}
+			});
+
 			$(document).ready(function () {
 				showAllMenu();
 			});
 
 			// DB 또는 오픈 API 내 데이터 가져와서 화면에 출력
-			function getData(info) {
+			function getData(type, info) {
 				let name = info["name"]; // 식당 이름
 				let id = info["id"]		 // 메뉴 ID
 				let dsc = info["dsc"];   // 메뉴 이름
 				let img = info["img"];   // 메뉴 이미지 URL
 
-				let temp_html = `<div class="col">
-									<div class="card" style="width: 18rem;">
-										<img src="${img}" class="card-img-top" onerror="this.src='static/img/fallback_image.jpg'">
-										<div class="card-body">
-											<h5 class="card-title">${name}</h5>
-											<a class="card-text">${dsc}</a>
-										</div>
+				let temp_html = `<div class="card" onclick="location.href='{{ url_for('detail')}}?id={{ '${type}/${id}' }}'">
+									<img src="${img}" class="card-img-top" onerror="this.src='static/img/fallback_image.jpg'">
+									<div class="card-body">
+										<h5 class="card-title">${name}</h5>
+										<p class="card-text">${dsc}</p>
 									</div>
 								</div>`;
 				$("#menu-list").append(temp_html);
@@ -103,13 +54,13 @@
 				fetch("/menu").then((res) => res.json()).then((data) => {
 					let rows = data["result"];
 					rows.forEach((info) => {
+						let menuType = info['type']; // 메뉴의 종류
 						if (type) {
-							let menuType = info['type'];
 							if (type == menuType) {
-								getData(info);
+								getData(menuType, info);
 							}
 						} else {
-							getData(info);
+							getData(menuType, info);
 						}
 					});
 				});
@@ -119,8 +70,8 @@
 			function getOpenApiData(type) {
 				fetch("https://free-food-menus-api-production.up.railway.app/" + type).then((res) => res.json()).then((data) => {
 					for (let i = 0; i < data.length; i++) {
-						getData(data[i]);
-					}
+						getData(type, data[i]);
+					};
 				});
 			}
 
@@ -156,18 +107,22 @@
 	<body>
 		<div class="main">
 			<div class="title">
-				<h1>Hwan’s Restaurant</h1>
+				<div>
+					<h1>Hwan’s Restaurant</h1>
+				</div>
+				<div class="titleBtn">
+					<button onclick="location.href='/post'">＋ 메뉴 등록</button>
+				</div>
+			</div>
+			<div class="gnb" id="gnb">
+				<button class="btn btn-primary" onclick="showSelectType(this.value)" value="all">all</button>
+				<button class="btn btn-primary" onclick="showSelectType(this.value)" value="steaks">steaks</button>
+				<button class="btn btn-primary" onclick="showSelectType(this.value)" value="pizzas">pizzas</button>
+				<button class="btn btn-primary" onclick="showSelectType(this.value)" value="desserts">desserts</button>
+				<button class="btn btn-primary" onclick="showSelectType(this.value)" value="drinks">drinks</button>
 			</div>
 			<hr>
-			<div class ="gnb" id="button">
-				<button onclick="showSelectType(this.value)" value="all">all</button>
-				<button onclick="showSelectType(this.value)" value="steaks">steaks</button>
-				<button onclick="showSelectType(this.value)" value="pizzas">pizzas</button>
-				<button onclick="showSelectType(this.value)" value="desserts">desserts</button>
-				<button onclick="showSelectType(this.value)" value="drinks">drinks</button>
-			</div>
-			<hr>
-			<div class="row row-cols-4" id="menu-list">
+			<div class="menubox" id="menu-list">
 				<div class="card" style="width: 18rem">
 					<img src="#" class="card-img-top" alt="..." />
 					<div class="card-body">

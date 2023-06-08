@@ -1,0 +1,29 @@
+.mypost {
+    width: 1280px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 50px 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.288);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.form-floating {
+    margin: 20px 0;
+}
+
+.btn {
+    float: right;
+    background-color: #3498DB;
+    border: none;
+}
+
+h2 {
+    color: #3498DB;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
+    padding-bottom: 40px;
+}
