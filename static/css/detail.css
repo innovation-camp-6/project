@@ -1,4 +1,4 @@
-body, div,span,h1,h2,h3,h4,h5,h6,p,a,img,ol,ul,li,label,legend,article,figure,figcaption,footer,header,nav,
+body, header, div,span,h1,h2,h3,h4,h5,h6,p,a,img,ol,ul,li,label,legend,article,figure,figcaption,footer,header,nav,
 section {
   margin: 0;
   padding: 0;
@@ -27,7 +27,7 @@ section {
    */
 }
 
-.selectionLeft {
+.sectionLeft {
   flex-grow: 1;
   flex-shrink: 1;
   width: 100%;
@@ -37,7 +37,7 @@ section {
   overflow: scroll;
 }
 
-.headerInfo {
+.styledHeader {
   height: 60px;
   max-height: 60px;
   display: flex;
@@ -47,14 +47,14 @@ section {
 
 }
 
-.headerInfo h1 {
+.styledHeader h1 {
   margin-left: 20px;
   font-size: 2rem;
   color: #95C0FF;
 }
 /* 1rem 16px */
 
-.headerInfo h3 {
+.styledHeader h3 {
   font-size: 1rem;
   line-height: 1.5rem;
   margin-left: 20px;
@@ -181,14 +181,14 @@ section {
   flex: 1 1 0;
 }
 
-.detailMenuInfo .commendLists {
+.detailMenuInfo .contentContainer {
   margin-top: 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.detailMenuInfo .commendOutLine {
+.detailMenuInfo .contentListWrap {
   display: flex;
   gap: 8px;
   padding: 8px;
@@ -197,14 +197,14 @@ section {
   border: 1px solid #B6AA8E;
 }
 
-.detailMenuInfo .commendOutLine .profileArea {
+.detailMenuInfo .contentListWrap .profileArea {
   width: 50px;
   min-height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;}
 
-.detailMenuInfo .commendLists .profileArea img {
+.detailMenuInfo .contentListWrap .profileArea img {
   display: flex;
   width: 90%;
   opacity: 0.2;
@@ -214,17 +214,30 @@ section {
   border: 2px solid lightgray;
 }
 
-.detailMenuInfo .commendOutLine .commendArea {
+.detailMenuInfo .contentListWrap .contentListArea {
   width: 100%;
   min-height: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 4px;
+
+}
+
+.detailMenuInfo .contentListWrap .contentListArea .author {
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: #797979;
+}
+
+.detailMenuInfo .contentListWrap .contentListArea span {
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: #b6b6b6;
 }
 
 
-.selectionRight {
+.sectionRight {
   width: 200px;
   height: 100%;
   max-height: 100%;
