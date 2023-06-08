@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,95 +9,62 @@
   <link rel="stylesheet" href="../static/detail.css">
   <title>Hwan's Choise</title>
 </head>
+
 <body>
   <div class="outLine">
 
     <div class="contaniar">
-        <section class="selectionLeft">
-            <div class="headerInfo">
-                <h1>HwaN's Choise</h1>
-            </div>
-            <div class="selectRestaurant">
-            </div>
-            <!-- selectionLeft I. detailMenuInfo -->
-            <div class="detailMenuInfo">
-                <!-- selectionLeft I-I. contentOutLine -->
-                <div class="contentOutLine">
-                  <figure class="img_box">
-                    <img src="" alt="">
-                  </figure>
-                  <div class="contentInLine">
-                    <div class="contentBox">
-                        <p>메뉴이름</p>
-                        <p>식당이름</p>
-                        <p>메뉴가격</p>
-                    </div>
-                  </div>
-                  
-                </div>
-                <!-- selectionLeft I-II. contentForm -->
-                <form class="contentForm" >
-                  <fieldset>
-                    <legend>후기 작성</legend>
-                    <div class="nickName">
-                      <input required type="text" placeholder="닉네임을 입력해주세요 **">
-                    </div>
-                    <div class="content">
-                      <input required type="text" placeholder="댓글을 입력해주세요(300자) **" maxlength="300">
-                    </div>
-                    <div class="submit">
-                      <input type="submit" value="댓글 작성">
-                    </div>
-                  </fieldset>
-                </form>
-                <!-- selectionLeft I-II. commendLists -->
-                <div class="commendLists">
-                </div>
-            </div>          
-        </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <section class="selectionRight">
-            <figure class="sideImg_box">
-                <img src="">
-            </figure>
-            
-        </section>
-    </div>    
+      <section class="selectionLeft">
+        <div class="headerInfo">
+          <h1>HwaN's Choise</h1>
+        </div>
+        <!-- selectionLeft I. detailMenuInfo -->
+        <div class="detailMenuInfo">
+          <!-- selectionLeft I-I. contentOutLine -->
+          <div class="contentOutLine">
+          </div>
+          <!-- selectionLeft I-II. contentForm -->
+          <form class="contentForm" onsubmit="formSubmission(event)">
+            <fieldset>
+              <legend>후기 작성</legend>
+              <div class="nickName">
+                <input required type="text" id="nickName" placeholder="닉네임을 입력해주세요 **">
+              </div>
+              <div class="content">
+                <input required type="text" id="commends" placeholder="댓글을 입력해주세요(300자) **" maxlength="300">
+              </div>
+              <div class="submit">
+                <input type="submit" value="댓글 작성">
+              </div>
+            </fieldset>
+          </form>
+          <!-- selectionLeft I-III. commendLists -->
+          <div class="commendLists">
+          </div>
+        </div>
+      </section>
+      <section class="selectionRight">
+      </section>
+    </div>
   </div>
-<script>
+  <script>
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     const selectRestaurant = id.split("/")[0]
+    $('.headerInfo').append(`<h3>${selectRestaurant}</h2>`);
     getMenu()
     sideMenu()
-    console.log(selectRestaurant)
-    $('.selectRestaurant').append(`<h3>${selectRestaurant}</h2>`);
+    getContent()
 
-
-      function getMenu() {
-        $.ajax({
-          type: "GET",
-          url: `https://free-food-menus-api-production.up.railway.app/${id}`,
-          data: {},
-          success: function (response) {
-            $('.contentOutLine').empty()
-            let {img, name, dsc, price} = response
-            $('.contentOutLine').append(`
+    function getMenu() {
+      $.ajax({
+        type: "GET",
+        url: `https://free-food-menus-api-production.up.railway.app/${id}`,
+        data: {},
+        success: function (response) {
+          $('.contentOutLine').empty()
+          let { img, name, dsc, price } = response
+          $('.contentOutLine').append(`
                 <figure class="img_box">
                     <img src="${img}" alt="">
                   </figure>
@@ -104,79 +72,84 @@
                     <div class="contentBox">
                         <p>${dsc}</p>
                         <p>${name}</p>
-                        <p>${Math.ceil(price*130)}원</p>
+                        <p>${Math.ceil(price * 130)}원</p>
                     </div>
                   </div>
           `);
-          }
-        })
         }
-
-        function sideMenu() {
-        $.ajax({
-          type: "GET",
-          url: `https://free-food-menus-api-production.up.railway.app/${selectRestaurant}`,
-          data: {},
-          success: function (response) {
-            for(let i = 0 ; i < 10 ; i++){
-                let img = response[i]['img']
-                console.log(img)
-            }
-          }
-        })
-        }   
-        
-        let reveiwLists = [
-        {
-          id: 0,
-          selectRestarant: "steaks",
-          selectRestarantId : "california-reserve-filet-mignon-steaks-gift-box",
-          nickName : "edwin",
-          content: "이 식당 존맛이더라...",
-          date:"2023-06-02",
-        },
-        {
-          id: 1,
-          selectRestarant: "steaks",
-          selectRestarantId : "california-reserve-filet-mignon-steaks-gift-box",
-          nickName : "edwin",
-          content: "이 식당 존맛이더라...",
-          date:"2023-06-02",
-        },
-        {
-          id: 3,
-          selectRestarant: "steaks",
-          selectRestarantId : "california-reserve-filet-mignon-steaks-gift-box",
-          nickName : "edwin",
-          content: "이 식당 존맛이더라...",
-          date:"2023-06-02",
-        },
-        {
-          id: 4,
-          selectRestarant: "steaks",
-          selectRestarantId : "california-reserve-filet-mignon-steaks-gift-box",
-          nickName : "edwin",
-          content: "이 식당 존맛이더라...",
-          date:"2023-06-02",
-        }
-      ]
-      
-      reveiwLists.forEach(el => {
-        let {id, nickName, content, date} = el;
-        $('.commendLists').append(`
-            <div class="commendOutLine" key=${id}>
-              <figure class="profileArea">
-                <img src="{{ url_for('static', filename='../static/images/userimg.png') }}" alt="userimg" width="100px">
-              </figure>
-              <div class="commendArea">
-                <p>${content}</p>
-                <p>${nickName} ${date}</p>
-              </div>
-            </div>
-        `);
       })
+    }
+
+    function sideMenu() {
+      $.ajax({
+        type: "GET",
+        url: `https://free-food-menus-api-production.up.railway.app/${selectRestaurant}`,
+        data: {},
+        success: function (response) {
+          let itemArray = []
+          for (let i = 0; i < 10; i++) {
+            let img = response[Math.floor((i + (Math.random() * 20)))]['img']
+            let menuName = response[Math.floor((i + (Math.random() * 20)))]['id']
+            let temp_html = `<figure class="sideImg_box">
+                                <img src="${img}" onerror="this.src='static/img/fallback_image.jpg'">
+                                <p class="sideName">${menuName}</p>
+                              </figure>`
+            $('.selectionRight').append(temp_html)
+          }
+        }
+      })
+    }   
+
+    function formSubmission(event) {
+      event.preventDefault()
+      let nickName = $('#nickName').val()
+      let content = $('#commends').val()
+      let date = Date.now()
+      let menuName = id.split("/")[1]
+      let contentId = menuName + date
+      console.log(`nickName ${nickName}, content ${content}`)
+
+      $.ajax({
+        type: "POST",
+        url: "/commendsubmit",
+        data: { id: contentId, nickName, content, date, menuName },
+        success: function (response) {
+          console.log(response["message"])
+          getContent()
+          $('#nickName').val('')
+          $('#commends').val('')
+        }
+      });
+    }
+
+    function getContent() {
+      $('.commendLists').empty()
+      $.ajax({
+        type: "GET",
+        url: "/commendsubmit",
+        data: {},
+        success: function (response) {
+          let contents = response['result'].filter(el => el.menuName === id.split("/")[1])
+          console.log(contents)
+          contents.forEach(({ id, content, nickName, date }) => {
+            $('.commendLists').append(`
+                  <div class="commendOutLine" key=${id}>
+                    <figure class="profileArea">
+                      <img src="{{ url_for('static', filename='../static/images/userimg.png') }}" alt="userimg" width="100px">
+                    </figure>
+                    <div class="commendArea">
+                      <p>${content}</p>
+                      <p>${nickName} ${date}</p>
+                    </div>
+                  </div>
+              `);
+          })
+        }
+      });
+    }
 
 
-</script>  
+  </script>
 </body>
+
 </html>
