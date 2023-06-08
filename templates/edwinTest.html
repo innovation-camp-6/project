@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    $(document).ready(function () {
+      getMenu();
+    });
+
+    function getMenu() {
+      $.ajax({
+        type: "GET",
+        url: "https://free-food-menus-api-production.up.railway.app/steaks",
+        data: {},
+        success: function (response) {
+          console.log(response)
+          for (let i = 0; i < response.length; i++) {
+            let id = response[i].id
+            let name = response[i].name
+            let price = response[i].price
+            let escapedName = name.replace("'", "\\'");
+            let temp_html = `
+                <h2>${id}</h2>
+                <div style="cursor: pointer" onClick="sayHello('${id}')">
+                  <a href="{{ url_for('detail')}}?id={{ 'steaks/${id}' }}">${name} - ${Math.ceil(price*130)}원</a>
+                </div>
+                
+                <hr/>
+            `
+            $('#menulist').append(temp_html)
+          }
+        }
+
+      });
+    }
+
+    function sayHello(name) {
+      console.log(name);
+    }
+  </script>
+  <div onClick="sayHello()">
+    test
+  </div>
+  <div id="menulist">
+
+  </div>
+</body>
+
+</html>

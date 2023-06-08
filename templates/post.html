@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+		<link href="/static/post.css" type="text/css" rel="stylesheet"></script>
+
+		<title>메뉴 등록</title>
+		<script>
+			function post_menu() {
+				let isFull = true; // 모든 데이터가 입력되었는지 확인하기 위한 변수
+
+				// 식당 추천
+				let type = $("#type").val();   // 메뉴 종류
+				let name = $("#name").val();   // 식당 이름
+				let dsc = $("#dsc").val();     // 메뉴 이름
+				let price = $("#price").val(); // 메뉴 가격
+				let url = $("#url").val();	   // 메뉴 이미지
+
+				let dataList = [type, name, dsc, price, url];
+				// 모든 데이터가 입력되어야지 메뉴 등록 가능
+				for (let i = 0; i < dataList.length; i++) {
+					let d = dataList[i];
+					if (d.length <= 0) {
+						isFull = false;
+						break;
+					}
+				}
+
+				// 이미지 URL 유효성 추가 (http로 시작)
+				if (!url.startsWith("http")) {
+					isFull = false;
+				}
+
+				if (isFull) {
+					let formData = new FormData();
+					formData.append("type_give", type);
+					formData.append("name_give", name);
+					formData.append("dsc_give", dsc);
+					formData.append("price_give", price);
+					formData.append("url_give", url);
+
+					fetch("/menu", { method: "POST", body: formData }).then((res) => res.json()).then((data) => {
+						alert(data["msg"]);
+						window.location.reload();
+					});
+				} else {
+					alert("모든 데이터를 입력해주세요.");
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="mypost">
+			<h2>메뉴 등록</h2>
+			<div class="form-floating">
+				<select	class="form-select"	id="type">
+					<option value="">종류를 선택하세요</option>
+					<option value="steaks">steaks</option>
+					<option value="pizzas">pizzas</option>
+					<option value="desserts">desserts</option>
+					<option value="drinks">drinks</option>				
+				</select>
+				<label for="type">음식 종류</label>
+			</div>			
+			<div class="form-floating">
+				<textarea class="form-control" id="name" style="height: 100px"></textarea>
+				<label for="floatingTextarea2">식당 이름</label>
+			</div>
+			<div class="form-floating">
+				<textarea class="form-control" id="dsc" style="height: 100px"></textarea>
+				<label for="floatingTextarea2">메뉴 이름</label>
+			</div>
+			<div class="form-floating">
+				<textarea class="form-control" id="price" style="height: 100px"></textarea>
+				<label for="floatingTextarea2">메뉴 가격</label>
+			</div>
+			<div class="form-floating">
+				<input type="url" class="form-control" id="url" value="https://~~">
+				<label for="floatingInputGrid">메뉴 사진 등록</label>
+			</div>
+			<button onclick="post_menu()" type="button" class="btn btn-dark">
+				메뉴 등록하기
+			</button>
+		</div>
+	</body>
+</html>
