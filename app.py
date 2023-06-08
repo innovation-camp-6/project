@@ -1,8 +1,10 @@
+import certifi
+from pymongo import MongoClient
 from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
-from pymongo import MongoClient
-client = MongoClient('mongodb+srv://project:project@cluster0.fugqwge.mongodb.net/?retryWrites=true&w=majority')
+ca = certifi.where()
+client = MongoClient('mongodb+srv://project:project@cluster0.fugqwge.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
 db = client.test
 
 @app.route('/')
@@ -12,7 +14,6 @@ def home():
 @app.route('/post')
 def post():
    return render_template('post.html')
-
 
 @app.route("/menu", methods=["POST"])
 def menu_post():
@@ -45,9 +46,27 @@ def test():
 def main():
   return render_template('edwinDetail.html')
 
+@app.route('/commendsubmit', methods=['POST'])
+def commendsubmit_post():
+    # 폼 데이터 처리 로직을 작성합니다.
+    data = request.form
+    doc = {
+      'id':data['id'],
+      'nickName':data['nickName'],
+      'content':data['content'],
+      'date':data['date'],
+      'menuName':data['menuName'],
+    }
+    db.content.insert_one(doc)
+    return jsonify({'message': '폼 데이터가 성공적으로 제출되었습니다.'})
+
+@app.route('/commendsubmit', methods=['GET'])
+def commendsubmit_get():
+  all_content = list(db.content.find({}, {'_id': False}))
+  return jsonify({'result': all_content})
+
 @app.route('/detail')
 def detail():
   return render_template('detail.html')  
-
 if __name__ == '__main__':
-   app.run('0.0.0.0', port=5000, debug=True)
+  app.run('0.0.0.0', port=5000, debug=True)
