@@ -23,12 +23,18 @@
     justify-content: center;
 
     padding-top: 20px;
+    @media screen and (max-width: 700px) {
+        height: 100px;
+    }
 }
 
 .titleName>h1 {    
     font-family: 'Nanum Myeongjo', serif;
     font-weight: bold;
     font-size: 3rem;
+    @media screen and (max-width: 700px) {
+        font-size: 2rem;
+    }
 }
 
 .titleBtn {
@@ -38,7 +44,10 @@
 .titleBtn > button {
     border : transparent;
     background-color: transparent;
-    font-size: 14px;
+    font-size: 0.8rem;
+    @media screen and (max-width: 700px) {
+        font-size:0.6rem 
+    }
 }
 
 .titleBtn > button:hover {
@@ -54,11 +63,14 @@
     justify-content: space-between;
 
     margin-bottom: 10px;
+    @media screen and (max-width: 700px) {
+        height: 35px;
+    }
 }
 
 .btn {
     width: 17%;
-    height: 52px;
+    height: 100%;
     border-radius: 10px;
     font-size: 100%;
     font-weight: 500;
@@ -66,6 +78,9 @@
     padding: 10px auto 10px auto;
     border: none;
     cursor: pointer;
+    @media screen and (max-width: 700px) {
+        padding: 0;
+    }
 }
 
 .btn-primary {
@@ -143,8 +158,8 @@
     }
   
     .card {
-        width: 45%;
-        height: 45%;
+        width: 40%;
+        height: 40%;
     }
 
     .card-body {

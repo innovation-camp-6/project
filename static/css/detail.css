@@ -52,6 +52,10 @@ section {
   align-items: center;
   justify-content: center;
   position: relative;
+  @media screen and (max-width: 700px) {
+    height: 80px;
+    max-height: 80px;
+  }
 }
 .styledHeader div {
   cursor: pointer;
@@ -62,6 +66,10 @@ section {
   font-size: 3rem;
   font-family: 'Nanum Myeongjo', serif;
   font-weight: bold;
+  @media screen and (max-width: 700px) {
+    font-size: 2rem;
+    
+  }
 }
 /* 1rem 16px */
 
@@ -307,4 +315,7 @@ section {
   border-left: 10px solid skyblue;
   border-right: 10px solid transparent;
   cursor: pointer;
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
 }
