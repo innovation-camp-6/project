@@ -2,6 +2,9 @@ $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     const selectRestaurant = id.split("/")[0]
+    const db = id.split("/")[2]
+    const dbitem = id.split("/")[1]
+    const dbitemid = [dbitem,db].join('/')
     const imageUrl = window.staticBaseUrl + "img/userimg.png";
     styledHeader()
     getMenu()
@@ -69,27 +72,48 @@ $(document).ready(function() {
 
     // getMenu 상세페이지에서 조회할 음식메뉴 API
     function getMenu() {
-      $.ajax({
-        type: "GET",
-        url: `https://free-food-menus-api-production.up.railway.app/${id}`,
-        data: {},
-        success: function (response) {
-          $('.contentOutLine').empty()
-          let { img, name, dsc, price } = response
-          $('.contentOutLine').append(`
-                <figure class="img_box">
-                    <img src="${img}" alt="">
-                  </figure>
-                  <div class="contentInLine">
-                    <div class="contentBox">
-                        <p>${dsc}</p>
-                        <p>${name}</p>
-                        <p>${Math.ceil(price * 130)}원</p>
+      db 
+        ? $.ajax({
+          type: "POST",
+          url: `/detaildb`,
+          data: {dbitemid},
+          success: function (response) {
+            let { img, name, dsc, price } = response['result'][0]
+            $('.contentOutLine').append(`
+                  <figure class="img_box">
+                      <img src="${img}" alt="menu" onerror="this.src='static/img/fallback_image.jpg'">
+                    </figure>
+                    <div class="contentInLine">
+                      <div class="contentBox">
+                          <p>${dsc}</p>
+                          <p>${name}</p>
+                          <p>${Math.ceil(price * 130)}원</p>
+                      </div>
                     </div>
-                  </div>
-          `);
-        }
-      })
+            `);
+          }
+        })
+        : $.ajax({
+          type: "GET",
+          url: `https://free-food-menus-api-production.up.railway.app/${id}`,
+          data: {},
+          success: function (response) {
+            $('.contentOutLine').empty()
+            let { img, name, dsc, price } = response
+            $('.contentOutLine').append(`
+                  <figure class="img_box">
+                      <img src="${img}" alt="menu" onerror="this.src='static/img/fallback_image.jpg'">
+                    </figure>
+                    <div class="contentInLine">
+                      <div class="contentBox">
+                          <p>${dsc}</p>
+                          <p>${name}</p>
+                          <p>${Math.ceil(price * 130)}원</p>
+                      </div>
+                    </div>
+            `);
+          }
+        })
     }
 
     // sideMenu 사이드바에서 렌덤으로 조회할 음식메뉴 API

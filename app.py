@@ -47,6 +47,13 @@ def menu_get():
     all_menus = list(db.menu.find({},{'_id':False}))
     return jsonify({'result': all_menus})
 
+@app.route("/detaildb", methods=["POST"])
+def detaildb_post():
+    id = request.form['dbitemid']  
+    find_menu = list(db.menu.find({'id':id},{'_id':False}))
+    return jsonify({'result':find_menu})
+
+
 @app.route('/content', methods=['POST'])
 def content_post():
     data = request.form
