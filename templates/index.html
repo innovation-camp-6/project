@@ -8,7 +8,7 @@
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-		<link href="/static/index.css" type="text/css" rel="stylesheet"></script>
+		<link href="./static/css/index.css" type="text/css" rel="stylesheet"></script>
 
 		<title>Hwan's Restaurant</title>		
 		<script>
@@ -38,6 +38,7 @@
 				let id = info["id"]		 // 메뉴 ID
 				let dsc = info["dsc"];   // 메뉴 이름
 				let img = info["img"];   // 메뉴 이미지 URL
+				console.log(img)
 
 				let temp_html = `<div class="card" onclick="location.href='{{ url_for('detail')}}?id={{ '${type}/${id}' }}'">
 									<img src="${img}" class="card-img-top" onerror="this.src='static/img/fallback_image.jpg'">
@@ -107,8 +108,8 @@
 	<body>
 		<div class="main">
 			<div class="title">
-				<div>
-					<h1>Hwan’s Restaurant</h1>
+				<div class="titleName">
+					<h1>Hwan’s Choice</h1>
 				</div>
 				<div class="titleBtn">
 					<button onclick="location.href='/post'">＋ 메뉴 등록</button>
