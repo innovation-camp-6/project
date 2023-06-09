@@ -143,7 +143,6 @@ $(document).ready(function() {
 
                       $('.sectionRight').append(temp_html);
           }
-            // onclick="location.href='/'"
           $('.sideBtn').click(function() {
             $('.sectionRight').toggle('slow');
           });

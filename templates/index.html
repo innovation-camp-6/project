@@ -38,7 +38,6 @@
 				let id = info["id"]		 // 메뉴 ID
 				let dsc = info["dsc"];   // 메뉴 이름
 				let img = info["img"];   // 메뉴 이미지 URL
-				console.log(img)
 
 				let temp_html = `<div class="card" onclick="location.href='{{ url_for('detail')}}?id={{ '${type}/${id}' }}'">
 									<img src="${img}" class="card-img-top" onerror="this.src='static/img/fallback_image.jpg'">
@@ -96,7 +95,7 @@
 					showAllMenu();
 				} else {
 					// mongoDB
-					getMongoDbData(type)
+					getMongoDbData(type);
 
 					// 오픈 api 데이터 가져오기
 					getOpenApiData(type);
