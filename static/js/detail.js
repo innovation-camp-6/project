@@ -12,8 +12,9 @@ $(document).ready(function() {
     // styledHeader 함수형 컴포넌트
     function styledHeader () {
       $('.styledHeader').append(`
-        <h1>HwaN's Choise</h1>  
+        <div onclick="location.href='/'"><h1>HwaN's Choise</h1></div>
         <h3>${selectRestaurant}</h2>
+        
       `);
     }
   
@@ -34,7 +35,7 @@ $(document).ready(function() {
                 <input 
                   required
                   type="text"
-                  id="commends" 
+                  id="content" 
                   maxlength="300"
                   placeholder="댓글을 입력해주세요(300자) **">
               </div>
@@ -49,7 +50,7 @@ $(document).ready(function() {
     $('.contentForm').on('submit', function(event) {
       event.preventDefault()
       let nickName = $('#nickName').val()
-      let content = $('#commends').val()
+      let content = $('#content').val()
       let date = Date.now()
       let menuName = id.split("/")[1]
       let contentId = menuName + date
@@ -61,7 +62,7 @@ $(document).ready(function() {
         success: function () {
           getContent() 
           $('#nickName').val('')
-          $('#commends').val('')
+          $('#content').val('')
         }
       });
     })
