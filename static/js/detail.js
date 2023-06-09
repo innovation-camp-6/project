@@ -6,7 +6,6 @@ $(document).ready(function() {
     const dbitem = id.split("/")[1]
     const dbitemid = [dbitem,db].join('/')
     const imageUrl = window.staticBaseUrl + "img/userimg.png";
-    const nowUrl = location.href.slice(0,39)
 
     styledHeader()
     getMenu()
@@ -139,12 +138,12 @@ $(document).ready(function() {
             
             let temp_html = `<figure class="sideImg_box">
                               <img src="${img}" onerror="this.src='static/img/fallback_image.jpg'"></img>
-                              <p class="sideName" onclick="location.href = '${nowUrl}${menuName}'">${menuName}</p>
+                              <p class="sideName" onclick="location.href = '/detail?id=${selectRestaurant}/${menuName}'">${menuName}</p>
                             </figure>`;
 
                       $('.sectionRight').append(temp_html);
           }
-
+            // onclick="location.href='/'"
           $('.sideBtn').click(function() {
             $('.sectionRight').toggle('slow');
           });
