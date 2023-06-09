@@ -7,14 +7,20 @@ ca = certifi.where()
 client = MongoClient('mongodb+srv://project:project@cluster0.fugqwge.mongodb.net/?retryWrites=true&w=majority', tlsCAFile=ca)
 db = client.test
 
+# 페이지 경로
 @app.route('/')
 def home():
-   return render_template('index.html')
+  return render_template('index.html')
 
 @app.route('/post')
 def post():
-   return render_template('post.html')
+  return render_template('post.html')
 
+@app.route('/detail')
+def detail():
+  return render_template('detail.html') 
+
+# REST-API 관련 통신 API 
 @app.route("/menu", methods=["POST"])
 def menu_post():
     type_receive = request.form['type_give']   # 메뉴 종류 (type)
@@ -23,6 +29,7 @@ def menu_post():
     price_receive = request.form['price_give'] # 메뉴 가격 (price)
     img_receive = request.form['img_give']     # 메뉴 이미지 (image)
     id_receive = request.form['id_give']     # 메뉴 아이디 (id)
+
 
     doc = {
             'type':type_receive,
@@ -39,18 +46,9 @@ def menu_post():
 def menu_get():
     all_menus = list(db.menu.find({},{'_id':False}))
     return jsonify({'result': all_menus})
-  
-@app.route('/test')
-def test():
-  return render_template('edwinTest.html')
 
-@app.route('/main')
-def main():
-  return render_template('edwinDetail.html')
-
-@app.route('/commendsubmit', methods=['POST'])
-def commendsubmit_post():
-    # 폼 데이터 처리 로직을 작성합니다.
+@app.route('/content', methods=['POST'])
+def content_post():
     data = request.form
     doc = {
       'id':data['id'],
@@ -62,13 +60,10 @@ def commendsubmit_post():
     db.content.insert_one(doc)
     return jsonify({'message': '폼 데이터가 성공적으로 제출되었습니다.'})
 
-@app.route('/commendsubmit', methods=['GET'])
-def commendsubmit_get():
+@app.route('/content', methods=['GET'])
+def content_get():
   all_content = list(db.content.find({}, {'_id': False}))
   return jsonify({'result': all_content})
 
-@app.route('/detail')
-def detail():
-  return render_template('detail.html') 
 if __name__ == '__main__':
   app.run('0.0.0.0', port=5000, debug=True)
