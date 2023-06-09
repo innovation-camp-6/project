@@ -6,6 +6,8 @@ $(document).ready(function() {
     const dbitem = id.split("/")[1]
     const dbitemid = [dbitem,db].join('/')
     const imageUrl = window.staticBaseUrl + "img/userimg.png";
+    const nowUrl = location.href.slice(0,39)
+
     styledHeader()
     getMenu()
     formSection()
@@ -123,16 +125,29 @@ $(document).ready(function() {
         url: `https://free-food-menus-api-production.up.railway.app/${selectRestaurant}`,
         data: {},
         success: function (response) {
-          let itemArray = []
+          let selectedNumbers = [];
           for (let i = 0; i < 10; i++) {
-            let img = response[Math.floor((i + (Math.random() * 20)))]['img']
-            let menuName = response[Math.floor((i + (Math.random() * 20)))]['id']
+            let randomNum;
+            do {
+              randomNum = Math.floor(Math.random() * response.length);
+            } while (selectedNumbers.includes(randomNum));
+
+            selectedNumbers.push(randomNum);
+
+            let img = response[randomNum]['img'];
+            let menuName = response[randomNum]['id'];
+            
             let temp_html = `<figure class="sideImg_box">
-                                <img src="${img}" onerror="this.src='static/img/fallback_image.jpg'">
-                                <p class="sideName">${menuName}</p>
-                              </figure>`
-            $('.sectionRight').append(temp_html)
+                              <img src="${img}" onerror="this.src='static/img/fallback_image.jpg'"></img>
+                              <p class="sideName" onclick="location.href = '${nowUrl}${menuName}'">${menuName}</p>
+                            </figure>`;
+
+                      $('.sectionRight').append(temp_html);
           }
+
+          $('.sideBtn').click(function() {
+            $('.sectionRight').toggle('slow');
+          });
         }
       })
     }   
@@ -166,5 +181,5 @@ $(document).ready(function() {
           })
         }
       });
-    }
+    }    
 })
