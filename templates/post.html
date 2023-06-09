@@ -21,7 +21,6 @@
 				let dsc = $("#dsc").val();     // 메뉴 이름
 				let price = $("#price").val(); // 메뉴 가격
 				let url = $("#url").val();	   // 메뉴 이미지
-				let id = type+Date.now()+"/db";// 메뉴 아이디
 
 				let dataList = [type, name, dsc, price, url];
 				// 모든 데이터가 입력되어야지 메뉴 등록 가능
@@ -45,7 +44,6 @@
 					formData.append("dsc_give", dsc);
 					formData.append("price_give", price);
 					formData.append("url_give", url);
-					formData.append("id_give", id);
 
 					fetch("/menu", { method: "POST", body: formData }).then((res) => res.json()).then((data) => {
 						alert(data["msg"]);
