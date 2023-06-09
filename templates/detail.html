@@ -90,6 +90,7 @@
           for (let i = 0; i < 10; i++) {
             let img = response[Math.floor((i + (Math.random() * 20)))]['img']
             let menuName = response[Math.floor((i + (Math.random() * 20)))]['id']
+            // 수정사항 적용
             let temp_html = `<figure class="sideImg_box">
                                 <img src="${img}" onerror="this.src='static/img/fallback_image.jpg'">
                                 <p class="sideName">${menuName}</p>
