@@ -22,13 +22,15 @@ def menu_post():
     dsc_receive = request.form['dsc_give']     # 메뉴 이름 (name)
     price_receive = request.form['price_give'] # 메뉴 가격 (price)
     url_receive = request.form['url_give']     # 메뉴 이미지 (image)
+    id_receive = request.form['id_give']     # 메뉴 아이디 (id)
 
     doc = {
             'type':type_receive,
             'name':name_receive,
             'dsc':dsc_receive,
             'price':price_receive,
-            'url':url_receive
+            'url':url_receive,
+            'id':id_receive
             }
     db.menu.insert_one(doc)
     return jsonify({'msg': '저장 완료!'})
@@ -67,6 +69,6 @@ def commendsubmit_get():
 
 @app.route('/detail')
 def detail():
-  return render_template('detail.html')  
+  return render_template('detail.html') 
 if __name__ == '__main__':
   app.run('0.0.0.0', port=5000, debug=True)
