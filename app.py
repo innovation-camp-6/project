@@ -30,7 +30,6 @@ def menu_post():
     img_receive = request.form['img_give']     # 메뉴 이미지 (image)
     id_receive = request.form['id_give']     # 메뉴 아이디 (id)
 
-
     doc = {
             'type':type_receive,
             'name':name_receive,

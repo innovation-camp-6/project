@@ -17,7 +17,7 @@ $(document).ready(function() {
     // styledHeader 함수형 컴포넌트
     function styledHeader () {
       $('.styledHeader').append(`
-        <div onclick="location.href='/'"><h1>HwaN's Choise</h1></div>
+        <div onclick="location.href='/'"><h1>Hwan's Choice</h1></div>
         <h3>${selectRestaurant}</h2>
         
       `);
@@ -89,7 +89,7 @@ $(document).ready(function() {
                       <div class="contentBox">
                           <p>${dsc}</p>
                           <p>${name}</p>
-                          <p>${Math.ceil(price * 130)}원</p>
+                          <p>${price}원</p>
                       </div>
                     </div>
             `);
