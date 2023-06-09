@@ -21,7 +21,7 @@ def menu_post():
     name_receive = request.form['name_give']   # 식당 이름 (restaurant)
     dsc_receive = request.form['dsc_give']     # 메뉴 이름 (name)
     price_receive = request.form['price_give'] # 메뉴 가격 (price)
-    url_receive = request.form['url_give']     # 메뉴 이미지 (image)
+    img_receive = request.form['img_give']     # 메뉴 이미지 (image)
     id_receive = request.form['id_give']     # 메뉴 아이디 (id)
 
     doc = {
@@ -29,7 +29,7 @@ def menu_post():
             'name':name_receive,
             'dsc':dsc_receive,
             'price':price_receive,
-            'url':url_receive,
+            'img':img_receive,
             'id':id_receive
             }
     db.menu.insert_one(doc)

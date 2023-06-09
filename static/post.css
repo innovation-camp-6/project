@@ -1,7 +1,5 @@
 .mypost {
-    width: 1280px;
-    margin: 0 auto;
-    background-color: #fff;
+    width: 90%;
     padding: 50px 50px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.288);
     position: absolute;
@@ -14,10 +12,15 @@
     margin: 20px 0;
 }
 
+.postBtn {
+    display: flex;
+    justify-content: right;
+}
+
 .btn {
-    float: right;
     background-color: #3498DB;
     border: none;
+    margin-left: 10px;
 }
 
 h2 {
