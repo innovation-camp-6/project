@@ -39,15 +39,15 @@ def menu_post():
             'id':id_receive
             }
     db.menu.insert_one(doc)
-    return jsonify({'msg': '저장 완료!'})
+    return jsonify({'msg': '등록 완료!'})
 
 @app.route("/menu", methods=["GET"])
 def menu_get():
     all_menus = list(db.menu.find({},{'_id':False}))
     return jsonify({'result': all_menus})
 
-@app.route("/detaildb", methods=["POST"])
-def detaildb_post():
+@app.route("/findmenu", methods=["POST"])
+def findmenu_post():
     id = request.form['dbitemid']  
     find_menu = list(db.menu.find({'id':id},{'_id':False}))
     return jsonify({'result':find_menu})
@@ -64,7 +64,7 @@ def content_post():
       'menuName':data['menuName'],
     }
     db.content.insert_one(doc)
-    return jsonify({'message': '폼 데이터가 성공적으로 제출되었습니다.'})
+    return jsonify({'msg': '댓글 등록이 완료되었습니다.'})
 
 @app.route('/content', methods=['GET'])
 def content_get():

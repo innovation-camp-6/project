@@ -8,9 +8,9 @@ $(document).ready(function() {
     const imageUrl = window.staticBaseUrl + "img/userimg.png";
 
     styledHeader()
-    getMenu()
     formSection()
-    sideMenu()
+    getMenu()
+    getSideMenu()
     getContent()
 
     // styledHeader 함수형 컴포넌트
@@ -76,7 +76,7 @@ $(document).ready(function() {
       db 
         ? $.ajax({
           type: "POST",
-          url: `/detaildb`,
+          url: `/findmenu`,
           data: {dbitemid},
           success: function (response) {
             let { img, name, dsc, price } = response['result'][0]
@@ -118,7 +118,7 @@ $(document).ready(function() {
     }
 
     // sideMenu 사이드바에서 렌덤으로 조회할 음식메뉴 API
-    function sideMenu() {
+    function getSideMenu() {
       $.ajax({
         type: "GET",
         url: `https://free-food-menus-api-production.up.railway.app/${selectRestaurant}`,
